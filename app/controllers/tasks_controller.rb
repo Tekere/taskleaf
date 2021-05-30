@@ -12,9 +12,14 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました"
+    # @taskに代入しておくことで、バリデーションエラー時に値を引き継げる
+    @task = Task.new(task_params)
+    # バリデーションに引っかかった場合の条件分岐 saveメソッドはバリデーション結果がbooleanで返る
+    if @task.save
+      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました" 
+    else
+      render :new
+    end
   end
 
   def edit
