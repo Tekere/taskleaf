@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    
+    @user = User.find(params[:id])
   end
   
   def update
@@ -32,6 +32,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
+    @users = User.all
   end
   
   def destroy
