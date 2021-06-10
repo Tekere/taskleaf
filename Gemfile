@@ -63,4 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
 gem 'html2slim'
+# パスワード用
 gem 'bcrypt', '~> 3.1.7'
+# 詳細リンクを自動生成
+gem 'rails_autolink'
