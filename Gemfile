@@ -67,3 +67,10 @@ gem 'html2slim'
 gem 'bcrypt', '~> 3.1.7'
 # 詳細リンクを自動生成
 gem 'rails_autolink'
+# テストツール
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop excution and get a debugugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails','~>3.7'
+end
+gem 'factory_bot_rails', '~>4.11'
