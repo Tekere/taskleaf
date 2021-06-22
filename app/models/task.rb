@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  has_one_attached :image
+  
   validates :name, presence: true
   validates :name, length: {maximum: 30}
   # 同じカラムなら合体も可

@@ -4,7 +4,10 @@ class TasksController < ApplicationController
     # @tasks = Task.all
     
     # ユーザーに紐付くタスク一覧を取得(作成日でソート)
-    @tasks = current_user.tasks.order(created_at: :desc)
+    # @tasks = current_user.tasks.order(created_at: :desc)
+    
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
 
   def show
@@ -28,6 +31,10 @@ class TasksController < ApplicationController
     # has_many belongs_to を定義してオブジェクト指向的に書く
     @task = current_user.tasks.new(task_params)
     
+    if params[:back].present?
+      render :new
+      return
+    end
     
     # バリデーションに引っかかった場合の条件分岐 saveメソッドはバリデーション結果がbooleanで返る
     if @task.save
@@ -53,9 +60,14 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "タスク「#{task.name}を削除しました」"
   end
   
+  def confirm_new
+    @task = current_user.tasks.new(task_params)
+    render :new unless @task.valid?
+  end
+  
   private
     def task_params
-      params.require(:task).permit(:name, :description)
+      params.require(:task).permit(:name, :description, :image)
     end
     
     def set_task

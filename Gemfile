@@ -74,3 +74,5 @@ group :development, :test do
   gem 'rspec-rails','~>3.7'
 end
 gem 'factory_bot_rails', '~>4.11'
+
+gem 'ransack'
