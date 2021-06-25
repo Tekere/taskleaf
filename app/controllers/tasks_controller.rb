@@ -7,7 +7,9 @@ class TasksController < ApplicationController
     # @tasks = current_user.tasks.order(created_at: :desc)
     
     @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true)
+    # @tasks = @q.result(distinct: true)
+    # ペジネーション
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def show
@@ -38,6 +40,7 @@ class TasksController < ApplicationController
     
     # バリデーションに引っかかった場合の条件分岐 saveメソッドはバリデーション結果がbooleanで返る
     if @task.save
+      # SampleJob.perform_later  job いらない
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました" 
     else
       render :new

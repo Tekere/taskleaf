@@ -76,3 +76,9 @@ end
 gem 'factory_bot_rails', '~>4.11'
 
 gem 'ransack'
+
+# pagination
+gem 'kaminari'
+
+# job
+gem 'sidekiq'
